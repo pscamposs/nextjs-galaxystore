@@ -1,0 +1,45 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --border-radius: 12px;
+  --font-mono: ui-monospace, Menlo, Monaco, "Cascadia Mono", "Segoe UI Mono",
+    "Roboto Mono", "Oxygen Mono", "Ubuntu Monospace", "Source Code Pro",
+    "Fira Mono", "Droid Sans Mono", "Courier New", monospace;
+
+  --primary-dark: #121113;
+  --secondary-dark: #1a191c;
+  --primary-white: #f2f2f2;
+  --secondary-white: #9d9d9d;
+  --draft-color: #662c91;
+  --draft-color-2: #533a7b;
+
+  * {
+    box-sizing: border-box;
+  }
+
+  html,
+  body {
+    width: 100vw;
+    overflow-x: hidden;
+    background-color: var(--primary-dark);
+    color: var(--primary-white);
+  }
+}
+::-webkit-scrollbar {
+  width: 4px;
+  height: 0;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--secondary-white);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--primary-dark);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--secondary-dark);
+}

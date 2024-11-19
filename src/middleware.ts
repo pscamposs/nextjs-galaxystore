@@ -1,0 +1,34 @@
+import {
+  NextAuthMiddlewareOptions,
+  NextRequestWithAuth,
+  withAuth,
+} from "next-auth/middleware";
+import { NextResponse } from "next/server";
+import { UserProfile } from "./types/FilterTypes";
+
+const middleware = async (request: NextRequestWithAuth) => {
+  const isPrivateRoutes = request.nextUrl.pathname.startsWith("/admin");
+
+  if (!request?.nextauth?.token?.user) {
+    return NextResponse.rewrite(new URL("/login", request.url));
+  }
+  let userToken: { token?: string } = request.nextauth.token.user;
+
+  if (!userToken?.token) {
+    return NextResponse.rewrite(new URL("/login", request.url));
+  }
+
+  const isAdmin = request.nextauth.token.user.profile.role.includes("ADMIN");
+  if (isPrivateRoutes && !isAdmin) {
+    return NextResponse.rewrite(new URL("/profile", request.url));
+  }
+
+  return NextResponse.next();
+};
+
+const callbackOptions: NextAuthMiddlewareOptions = {};
+
+export default withAuth(middleware);
+export const config = {
+  matcher: ["/profile", "/cart", "/admin", "/dashboard"],
+};
