@@ -8,12 +8,13 @@ import PermissionsContent from "./(tabs)/PermissionContent";
 import UpdatesContent from "./(tabs)/UpdatesContent";
 import CommentsContent from "./(tabs)/CommentsContent";
 
-const ModalContainer = styled.div<{ isOpen: boolean }>`
-  visibility: ${(props) => (props.isOpen ? "visible" : "hidden")};
+const ModalContainer = styled.div`
+  visibility: hidden;
+  /* visibility: ${(props) => (props.isVisible ? "visible" : "hidden")}; */
   position: fixed;
   bottom: 0;
   width: 100%;
-  height: ${(props) => (props.isOpen ? "100%" : "0")};
+  /* height: ${(props) => (props.isVisible ? "100%" : "0")}; */
   z-index: 9999;
 `;
 
@@ -23,12 +24,12 @@ const ModalMask = styled.div`
   width: 100%;
 `;
 
-const ModalContent = styled.div<{ isOpen: boolean }>`
+const ModalContent = styled.div`
   position: fixed;
   bottom: 0;
   background-color: var(--secondary-dark);
   width: 100%;
-  height: ${(props) => (props.isOpen ? "550px" : "0")};
+  /* height: ${(props) => (props.isVisible ? "550px" : "0")}; */
   transition: 0.3s all ease-in;
   padding: 8px 16px;
 
@@ -57,9 +58,9 @@ export default function PluginInfoModal() {
   const { isOpen, toggleModal, tab, plugin } = useContext(ModalContext);
 
   return (
-    <ModalContainer isOpen={isOpen}>
+    <ModalContainer>
       <ModalMask onClick={() => toggleModal({})} />
-      <ModalContent isOpen={isOpen}>
+      <ModalContent>
         <h2>Detalhes do Plugin</h2>
         <ModalInfo>
           {/* <PluginCard plugin={plugin} edit={false} />

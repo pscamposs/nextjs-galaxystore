@@ -29,9 +29,7 @@ export default function RootLayout({
           <SessionProvider>
             <Toaster position="top-center" theme="dark" richColors />
             <CartContexProvider>
-              <FilterProvider>
-                <ModalContextProvider>{children}</ModalContextProvider>
-              </FilterProvider>
+              <FilterProvider>{children}</FilterProvider>
             </CartContexProvider>
           </SessionProvider>
         </QueryClientProvider>

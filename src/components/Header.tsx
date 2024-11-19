@@ -72,40 +72,6 @@ const MainList = styled.ul`
     padding: 8px 0;
   }
 
-  li a {
-    text-decoration: none;
-    color: var(--primary-white);
-    font-size: 18px;
-    text-transform: uppercase;
-    transition: 0.2s;
-    width: 100%;
-    display: inline-block;
-    padding: 12px 0;
-  }
-
-  li a:hover {
-    color: var(--draft-color);
-  }
-
-  li #profile {
-    padding: 12px 8px;
-    border: none;
-    cursor: pointer;
-    border-radius: 4px;
-    font-weight: 600;
-    background-color: var(--draft-color-2);
-    color: var(--primary-white);
-  }
-
-  li button:hover {
-    background-color: var(--draft-color);
-    transition: 0.2s;
-  }
-
-  li svg {
-    margin-right: 4px;
-  }
-
   @media (max-width: 768px) {
     display: block;
     width: 100%;
@@ -121,10 +87,10 @@ const MainList = styled.ul`
 `;
 
 export default function Header() {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpendw, setIsOpen] = useState(false);
 
   const handleOpenMenu = () => {
-    setIsOpen(!isOpen);
+    setIsOpen(!isOpendw);
   };
 
   return (
@@ -135,14 +101,14 @@ export default function Header() {
             <Image src={logo} alt="Logo" />
           </div>
           <button className="menu-button" onClick={() => handleOpenMenu()}>
-            {isOpen ? (
+            {isOpendw ? (
               <FontAwesomeIcon icon={faX} />
             ) : (
               <FontAwesomeIcon icon={faBars} />
             )}
           </button>
 
-          <MainList className={isOpen ? "open" : ""}>
+          <MainList className={isOpendw ? "open" : ""}>
             <li>
               <Link href="/">
                 <FontAwesomeIcon icon={faHome} />

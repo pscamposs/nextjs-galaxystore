@@ -48,6 +48,7 @@ export const UserRanking = () => {
           {data.users.map((user: ICardRanking) => {
             return (
               <CardRanking
+                key={user.username}
                 username={user.username}
                 total={user.total}
                 createdAt={user.createdAt}
