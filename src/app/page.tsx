@@ -90,7 +90,7 @@ const FloatImage = styled.div`
 export default function Home() {
   return (
     <Layout header={<Header />}>
-      <ContentContainer>
+      <>
         <MainContent>
           <div>
             <h2>
@@ -120,7 +120,7 @@ export default function Home() {
             </div>
           </PosterContainer>
         </section>
-      </ContentContainer>
+      </>
     </Layout>
   );
 }
