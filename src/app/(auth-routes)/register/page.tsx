@@ -99,7 +99,7 @@ export default function LoginPage() {
             />
           </FormWrapper>
           <FormWrapper>
-            <label htmlFor="terms">
+            <label htmlFor="terms" className="text-zinc-500">
               Ao criar sua conta você declara que leu e aceitou os {""}
               <Link href="/termos" target="_blank">
                 termos e condições.
@@ -117,7 +117,9 @@ export default function LoginPage() {
             <div>
               <p>
                 Já possuo conta, quero{" "}
-                <Link href="/login">entrar em minha conta</Link>
+                <Link href="/login" className="text-purple-700 font-bold">
+                  entrar em minha conta
+                </Link>
               </p>
             </div>
           </div>

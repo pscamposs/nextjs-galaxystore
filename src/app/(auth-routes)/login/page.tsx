@@ -8,7 +8,6 @@ import { faEnvelope, faLock } from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
 import Image from "next/image";
 
-import { ContentContainer } from "@/components/ContentContainer";
 import FormComponent, {
   FormHeader,
   FormWrapper,
@@ -56,7 +55,7 @@ export default function LoginPage() {
   };
 
   return (
-    <ContentContainer>
+    <div>
       <FormComponent>
         <FormHeader>
           <Image src={logo} alt="Logo" />
@@ -90,12 +89,14 @@ export default function LoginPage() {
             <div>
               <p>
                 Não possuo conta, quero{" "}
-                <Link href="/register">criar uma conta</Link>
+                <Link href="/register" className="text-purple-700 font-bold">
+                  criar uma conta
+                </Link>
               </p>
             </div>
           </div>
         </form>
       </FormComponent>
-    </ContentContainer>
+    </div>
   );
 }
