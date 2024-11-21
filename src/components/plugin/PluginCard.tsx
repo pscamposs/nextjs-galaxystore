@@ -76,8 +76,6 @@ export default function PluginCard({
   setDialogOpen?: any;
   setEditPlugin?: any;
 }) {
-  const { data: session } = useSession();
-  const { toggleModal } = useModal();
   const { addItem } = useCart();
 
   return (
@@ -86,7 +84,6 @@ export default function PluginCard({
         <Image
           src={plugin.image || "/res/images/Default.svg"}
           alt="pluginIcon"
-          onClick={() => toggleModal(plugin)}
           width={128}
           height={128}
         />
