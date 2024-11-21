@@ -5,8 +5,7 @@ import styled from "styled-components";
 
 const Footer = styled.footer`
   width: 100vw;
-  position: static;
-  left: 0;
+  position: fixed;
   bottom: 0;
 `;
 
@@ -63,10 +62,10 @@ export default function FooterComponent() {
             <Link href="/termos">Termos de Uso</Link>
           </li>
           <li>
-            <Link href="/sobre">Sobre</Link>
+            <Link href="/perfil">Sobre</Link>
           </li>
           <li>
-            <Link href="/suporte">Suporte</Link>
+            <Link href="/perfil">Suporte</Link>
           </li>
         </ul>
       </FooterContainer>
