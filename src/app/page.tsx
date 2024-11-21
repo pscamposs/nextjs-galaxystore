@@ -27,6 +27,10 @@ const MainContent = styled.div`
     color: var(--secondary-white);
     line-height: 150%;
   }
+
+  @media (max-width: 768px) {
+    flex-wrap: wrap;
+  }
 `;
 
 const PosterContainer = styled.div`
