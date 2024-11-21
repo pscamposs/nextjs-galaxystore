@@ -74,6 +74,9 @@ export const CartContexProvider = ({
     if (response.ok) {
       toast.success("Plugin adicionado ao seu carrinho.");
       refetch();
+    } else {
+      const data = await response.json();
+      toast.error(data?.message);
     }
   };
 
