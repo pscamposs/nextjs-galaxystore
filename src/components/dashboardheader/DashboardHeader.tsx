@@ -84,8 +84,8 @@ export const DashboardHeader = ({ setView }: { setView: any }) => {
   };
 
   return (
-    <header className="relative ">
-      <section className="px-12 h-64 flex justify-between items-center flex-wrap gap-2 bg-zinc-900 ">
+    <header className="relative">
+      <section className="px-12 h-60 flex justify-between items-center flex-wrap gap-2 bg-zinc-900 ">
         <div className="flex items-end gap-4">
           <Image src={logo} alt="logo" width={80} height={50} />
           <div className="mt-4 cursor-default">
