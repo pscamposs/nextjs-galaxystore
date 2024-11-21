@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import { useQuery } from "@tanstack/react-query";
 import styled from "styled-components";
+import Loader from "../Loader";
 
 const PluginFilter = styled.div<{ selected: boolean }>`
   width: 100%;
@@ -48,7 +49,7 @@ export function PluginFilters({
     queryFn: fetchCategories,
   });
 
-  return (
+  return queryCategories.data ? (
     <FilterContainer>
       {queryCategories.data?.map((category) => (
         <PluginFilter
@@ -61,5 +62,7 @@ export function PluginFilters({
         </PluginFilter>
       ))}
     </FilterContainer>
+  ) : (
+    <Loader />
   );
 }

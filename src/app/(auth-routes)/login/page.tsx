@@ -2,13 +2,9 @@
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import logo from "../../../../public/res/images/galaxy-logo.png";
-import { signIn } from "next-auth/react";
+import { signIn, useSession } from "next-auth/react";
 
-import {
-  faEnvelope,
-  faLock,
-  faMailBulk,
-} from "@fortawesome/free-solid-svg-icons";
+import { faEnvelope, faLock } from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
 import Image from "next/image";
 
@@ -21,14 +17,18 @@ import FormComponent, {
 import PasswordInput from "@/components/PasswordInput";
 import { useRouter } from "next/navigation";
 import { toast, Toaster } from "sonner";
-import { useState } from "react";
-import styled from "styled-components";
+import { useEffect, useState } from "react";
 import { LoaderButton } from "@/components/LoaderButton";
 
 export default function LoginPage() {
   const router = useRouter();
 
+  const { data: session } = useSession();
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    if (session?.user) router.push("/perfil");
+  }, [session, router]);
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();

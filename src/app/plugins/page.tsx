@@ -60,8 +60,6 @@ export default function PluginsHome() {
     queryFn: () => fetchPlugins(category),
   });
 
-  if (!queryPlugins.data) return <Loader />;
-
   const handleFilter = (filter: string) => {
     if (category === filter.toLocaleLowerCase()) {
       setCategory("");
@@ -77,16 +75,21 @@ export default function PluginsHome() {
           <div>
             <div>
               <PluginSearchWIcon />
+
               <PluginFilters
                 onFilter={handleFilter}
                 categoryFilter={category}
               />
             </div>
-            <PluginsSection>
-              {queryPlugins.data?.map((plugin: Plugin) => (
-                <PluginCard key={plugin.id} plugin={plugin} />
-              ))}
-            </PluginsSection>
+            {queryPlugins.data ? (
+              <PluginsSection>
+                {queryPlugins.data?.map((plugin: Plugin) => (
+                  <PluginCard key={plugin.id} plugin={plugin} />
+                ))}
+              </PluginsSection>
+            ) : (
+              <Loader />
+            )}
           </div>
         </PluginSection>
       </ContentContainer>
