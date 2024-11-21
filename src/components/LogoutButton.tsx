@@ -1,9 +1,8 @@
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { signOut, useSession } from "next-auth/react";
+import { signOut } from "next-auth/react";
 import styled from "styled-components";
 import { deleteCookie } from "cookies-next";
-import { cookies } from "next/headers";
 
 const LogoutButton = styled.button`
   border: none;
@@ -23,13 +22,6 @@ const LogoutButton = styled.button`
 `;
 
 export default async function Logout() {
-  const cookieStore = await cookies();
-
-  const handleLogout = () => {
-    signOut();
-    cookieStore.delete("galaxy-store.session");
-  };
-
   return (
     <LogoutButton
       onClick={() => {
