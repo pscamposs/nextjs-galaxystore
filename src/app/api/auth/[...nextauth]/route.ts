@@ -57,24 +57,10 @@ const authOptions: NextAuthOptions = {
   },
   callbacks: {
     jwt: async ({ token, user }) => {
-      if (token.token) {
-        const profileResponse = await fetch(
-          `${process.env.API_URL}/user/profile`,
-          {
-            headers: {
-              Authorization: `Bearer ${token.user.token}`,
-            },
-          }
-        );
-
-        if (!profileResponse.ok) {
-          signOut();
-        }
-      }
-
       if (user) {
         token.user = user;
       }
+
       return token;
     },
     session: async ({ session, token }) => {

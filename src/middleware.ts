@@ -20,7 +20,7 @@ const middleware = async (request: NextRequestWithAuth) => {
 
   const isAdmin = request.nextauth.token.user.profile.role.includes("ADMIN");
   if (isPrivateRoutes && !isAdmin) {
-    return NextResponse.rewrite(new URL("/profile", request.url));
+    return NextResponse.rewrite(new URL("/perfil", request.url));
   }
 
   return NextResponse.next();
@@ -30,5 +30,5 @@ const callbackOptions: NextAuthMiddlewareOptions = {};
 
 export default withAuth(middleware);
 export const config = {
-  matcher: ["/profile", "/cart", "/admin", "/dashboard"],
+  matcher: ["/perfil", "/cart", "/admin", "/dashboard"],
 };

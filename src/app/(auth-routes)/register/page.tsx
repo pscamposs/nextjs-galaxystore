@@ -58,7 +58,7 @@ export default function LoginPage() {
         password,
       }).then(({ ok, error }: any) => {
         if (ok) {
-          router.push("/profile");
+          router.push("/perfil");
         } else {
           toast.error("Não foi possível entrar em sua conta.");
         }

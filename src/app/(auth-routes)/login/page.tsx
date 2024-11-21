@@ -46,7 +46,7 @@ export default function LoginPage() {
     }).then(({ ok, error }: any) => {
       if (ok) {
         toast.success("Logado com sucesso");
-        router.push("/profile");
+        router.push("/perfil");
       } else {
         toast.error("Usuário e ou senha incorretos.");
         console.log(error);
