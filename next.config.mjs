@@ -2,6 +2,7 @@ import { hostname } from "os";
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  reactStrictMode: true,
   compiler: {
     styledComponents: true,
   },
@@ -19,6 +20,10 @@ const nextConfig = {
         hostname: "**",
       },
     ],
+  },
+  env: {
+    API_URL: process.env.API_URL,
+    NEXTAUTH_SECRET: process.env.NEXTAUTH_SECRET,
   },
 };
 
