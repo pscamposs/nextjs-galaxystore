@@ -23,6 +23,7 @@ import { PaymentsView } from "./view/Payments";
 import { PluginsView } from "./view/Plugins";
 import { signOut, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import { deleteCookie } from "cookies-next";
 
 const MenuItem = ({
   label,
@@ -109,7 +110,10 @@ export const DashboardHeader = ({ setView }: { setView: any }) => {
             <MenuItem
               label="Sair da conta"
               icon={faSignOut}
-              onClick={signOut}
+              onClick={() => {
+                deleteCookie("galaxy-store.session");
+                signOut();
+              }}
             />
           </ul>
         </div>

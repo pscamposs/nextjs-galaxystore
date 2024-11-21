@@ -30,5 +30,5 @@ const callbackOptions: NextAuthMiddlewareOptions = {};
 
 export default withAuth(middleware);
 export const config = {
-  matcher: ["/perfil", "/cart", "/admin", "/dashboard"],
+  matcher: ["/perfil", "/carrinho", "/admin", "/dashboard"],
 };

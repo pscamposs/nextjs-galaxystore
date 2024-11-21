@@ -1,16 +1,12 @@
 "use client";
 import { fetchClient } from "@/libs/fetchClient";
 import { ICart, Plugin } from "@/types/FilterTypes";
-import { useQuery } from "@tanstack/react-query";
-import { useLocalStorage } from "@uidotdev/usehooks";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import { createContext, useEffect, useState } from "react";
+import { createContext, useState } from "react";
 import { toast } from "sonner";
 
 interface CartContextProps {
-  cart: ICart | undefined;
-  removeItem: (plugin: Plugin) => void;
   addItem: (plugin: Plugin) => void;
   checkout: () => void;
 }
@@ -35,33 +31,6 @@ export const CartContexProvider = ({
     return;
   };
 
-  const fetchCart = async () => {
-    const response = await fetchClient(`/cart`, {}, false);
-    if (!response.ok) return [];
-    return (await response.json()) as ICart;
-  };
-
-  const { refetch, data: userCart } = useQuery({
-    queryKey: ["fetchCart"],
-    queryFn: () => fetchCart(),
-  });
-
-  const removeItem = async (plugin: Plugin) => {
-    checkSessionStatus();
-    const response = await fetchClient(
-      `/cart/${plugin.id}`,
-      {
-        method: "DELETE",
-      },
-      false
-    );
-
-    if (response) {
-      toast.success("Plugin remivido do carrinho.");
-      refetch();
-    }
-  };
-
   const addItem = async (plugin: Plugin) => {
     checkSessionStatus();
     const response = await fetchClient(
@@ -73,7 +42,6 @@ export const CartContexProvider = ({
     );
     if (response.ok) {
       toast.success("Plugin adicionado ao seu carrinho.");
-      refetch();
     } else {
       const data = await response.json();
       toast.error(data?.message);
@@ -95,21 +63,11 @@ export const CartContexProvider = ({
     }
   };
 
-  useEffect(() => {
-    if (!session) return;
-    refetch();
-    if (userCart && !Array.isArray(userCart)) {
-      setCart(userCart);
-    }
-  }, [refetch, session, userCart]);
-
   return (
     <CartContext.Provider
       value={{
         checkout,
-        removeItem,
         addItem,
-        cart,
       }}
     >
       {children}

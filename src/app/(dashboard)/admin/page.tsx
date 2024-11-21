@@ -11,7 +11,6 @@ import Plugins from "@/components/plugin/Plugins";
 import { useSession } from "next-auth/react";
 import ClientCardComponent from "@/components/ClientRanking";
 import Loader from "@/components/Loader";
-import Logout from "@/components/LogoutButton";
 
 const DashboardContainer = styled.div`
   padding: 0 2rem;
@@ -98,7 +97,6 @@ export default function AdminDashboard() {
         <div>
           <h2>Seja bem vindo</h2>
           <p>Configure e administre a loja em seu dashboard</p>
-          <Logout />
         </div>
         <ul>
           <li>
