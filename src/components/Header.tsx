@@ -11,8 +11,11 @@ import {
   faPlug,
   faUser,
 } from "@fortawesome/free-solid-svg-icons";
+import { useSession } from "next-auth/react";
 
 export default function Header() {
+  const { status } = useSession();
+
   const [visible, setVisible] = useState(false);
 
   const handleOpenMenu = () => {
@@ -67,7 +70,6 @@ export default function Header() {
               className="bg-zinc-800 p-2 rounded-sm hover:bg-zinc-700"
             >
               <FontAwesomeIcon icon={faCartPlus} />
-              <span className="px-1">0</span>
             </Link>
           </li>
           <li>
@@ -80,7 +82,7 @@ export default function Header() {
           </li>
           <li>
             <Link
-              href="/login"
+              href={status == "authenticated" ? "/perfil" : "/login"}
               className="bg-purple-950 py-2 px-6 hover:bg-purple-900 max-lg:block"
             >
               <FontAwesomeIcon icon={faUser} />
