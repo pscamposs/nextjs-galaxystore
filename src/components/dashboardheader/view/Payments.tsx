@@ -63,24 +63,24 @@ export const PaymentsView = () => {
   return (
     <div>
       <h1 className="font-medium text-2xl">Minhas compras</h1>
-      <section className="py-4">
+      <section className="py-4 overflow-x-scroll">
         <table className="table-fixed w-full">
           <thead>
             <tr className="bg-zinc-900">
-              <th className="p-4 text-sm font-normal leading-none text-zinc-400">
+              <th className="p-4 text-sm font-normal leading-none text-zinc-400 w-40">
                 Método de Pagamento
               </th>
 
-              <th className="p-4 text-sm font-normal leading-none text-zinc-400">
+              <th className="p-4 text-sm font-normal leading-none text-zinc-400 w-40">
                 Data de criação
               </th>
-              <th className="p-4 text-sm font-normal leading-none text-zinc-400">
+              <th className="p-4 text-sm font-normal leading-none text-zinc-400 w-40">
                 Ultima atualização
               </th>
-              <th className="p-4 text-sm font-normal leading-none text-zinc-400">
+              <th className="p-4 text-sm font-normal leading-none text-zinc-400 w-40">
                 Status
               </th>
-              <th className="p-4 text-sm font-normal leading-none text-zinc-400">
+              <th className="p-4 text-sm font-normal leading-none text-zinc-400 w-40">
                 Subtotal
               </th>
             </tr>
