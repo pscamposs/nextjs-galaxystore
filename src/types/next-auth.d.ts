@@ -1,4 +1,5 @@
 import NextAuth from "next-auth";
+import { UserProfile } from "./FilterTypes";
 
 declare module "next-auth" {
   interface Session {
