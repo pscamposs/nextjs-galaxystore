@@ -1,146 +1,94 @@
-"use client";
+import Image from "next/image";
+import { useState } from "react";
+import logo from "../../public/res/images/galaxy-logo.png";
+import Link from "next/link";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faBars,
+  faCartPlus,
+  faClose,
   faHome,
   faPlug,
   faUser,
-  faX,
 } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Image from "next/image";
-import Link from "next/link";
-import styled from "styled-components";
-import logo from "../../public/res/images/galaxy-logo.png";
-import { useState } from "react";
-import ShopCart from "./ShopCart";
-
-const MainHeader = styled.header`
-  width: 100%;
-  background-color: var(--primary-dark);
-  padding: 20px 32px;
-
-  overflow: hidden;
-  top: 0;
-  left: 0;
-
-  img {
-    max-width: 64px;
-    max-height: 64px;
-  }
-
-  nav {
-    display: flex;
-    justify-content: space-between;
-  }
-
-  .menu-button {
-    visibility: hidden;
-    position: absolute;
-    right: 16px;
-    top: 55px;
-    font-size: 1.5rem;
-    background-color: transparent;
-    color: aliceblue;
-    border: none;
-    cursor: pointer;
-  }
-
-  @media (max-width: 768px) {
-    nav {
-      display: block;
-    }
-
-    .menu-button {
-      visibility: visible;
-    }
-
-    .open {
-      height: 240px;
-    }
-  }
-`;
-
-const MainList = styled.ul`
-  display: flex;
-  align-items: center;
-  list-style: none;
-
-  transition: all 0.2s ease-in;
-
-  li {
-    margin-right: 16px;
-    padding: 8px 0;
-  }
-
-  @media (max-width: 768px) {
-    display: block;
-    width: 100%;
-    height: 0;
-
-    text-align: center;
-
-    ul {
-      width: 100%;
-      text-align: center;
-    }
-  }
-`;
 
 export default function Header() {
-  const [isOpendw, setIsOpen] = useState(false);
+  const [visible, setVisible] = useState(false);
 
   const handleOpenMenu = () => {
-    setIsOpen(!isOpendw);
+    setVisible(!visible);
   };
 
   return (
-    <header>
-      <MainHeader>
-        <nav>
-          <div>
-            <Image src={logo} alt="Logo" />
+    <header className="flex items-center justify-between bg-zinc-900 max-lg:px-4 relative z-10">
+      <section className="px-12 py-4 flex justify-between items-center flex-wrap gap-2 max-lg:px-4">
+        <div className="flex items-center gap-4">
+          <Link href="/">
+            <Image src={logo} alt="logo" width={40} height={50} />
+          </Link>
+          <div className="cursor-default">
+            <h1 className="text-xl font-bold">Galaxy Store</h1>
           </div>
-          <button className="menu-button" onClick={() => handleOpenMenu()}>
-            {isOpendw ? (
-              <FontAwesomeIcon icon={faX} />
-            ) : (
-              <FontAwesomeIcon icon={faBars} />
-            )}
-          </button>
-
-          <MainList className={isOpendw ? "open" : ""}>
-            <li>
-              <Link href="/">
-                <FontAwesomeIcon icon={faHome} />
-                Inicio
-              </Link>
-            </li>
-            <li>
-              <Link href="/plugins">
-                <FontAwesomeIcon icon={faPlug} />
-                Plugins
-              </Link>
-            </li>
-            <li>
-              <Link href="/cart">
-                <ShopCart />
-              </Link>
-            </li>
-            {/* <li>
-            <Link href="/termos">
-              <FontAwesomeIcon icon={faBook} />
-              Termos
+        </div>
+      </section>
+      <FontAwesomeIcon
+        icon={visible ? faClose : faBars}
+        onClick={handleOpenMenu}
+        className="lg:hidden"
+      />
+      <nav
+        className={`px-4 w-full flex justify-between bg-zinc-900 flex-1 max-lg:flex-col max-lg:absolute max-lg:items-start left-0 top-16  transition-all overflow-hidden ${
+          visible ? "max-lg:h-72" : "max-lg:h-0"
+        }`}
+      >
+        <ul className="flex items-center gap-4 max-lg:mt-4 max-lg:flex-col max-lg:px-2">
+          <li className="hover:text-purple-800  transition-all">
+            <Link href="/">
+              <FontAwesomeIcon icon={faHome} />
+              <span className="px-1">Inicio</span>
             </Link>
-          </li> */}
-            <li>
-              <Link href="/profile" id="profile">
-                <FontAwesomeIcon icon={faUser} />
-                Área do Cliente
-              </Link>
-            </li>
-          </MainList>
-        </nav>
-      </MainHeader>
+          </li>
+          <li className="hover:text-purple-800 transition-all">
+            <Link href="/plugins">
+              <FontAwesomeIcon icon={faPlug} />
+              <span className="px-1">Plugins</span>
+            </Link>
+          </li>
+          <li className="hover:text-purple-800  transition-all">
+            <Link href="/discord">
+              <span>Discord</span>
+            </Link>
+          </li>
+        </ul>
+        <ul className="flex gap-4 py-6 max-lg:flex-col max-lg:w-full ">
+          <li>
+            <Link
+              href="/carrinho"
+              className="bg-zinc-800 p-2 rounded-sm hover:bg-zinc-700"
+            >
+              <FontAwesomeIcon icon={faCartPlus} />
+              <span className="px-1">0</span>
+            </Link>
+          </li>
+          <li>
+            <Link
+              href="/register"
+              className="bg-zinc-800 py-2 px-6 rounded-sm hover:bg-zinc-700 max-lg:block"
+            >
+              <span>Criar conta</span>
+            </Link>
+          </li>
+          <li>
+            <Link
+              href="/login"
+              className="bg-purple-950 py-2 px-6 hover:bg-purple-900 max-lg:block"
+            >
+              <FontAwesomeIcon icon={faUser} />
+              <span className="px-1 ">Meu Perfil</span>
+            </Link>
+          </li>
+        </ul>
+      </nav>
     </header>
   );
 }
