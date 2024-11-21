@@ -13,6 +13,11 @@ import { useFilter } from "@/hooks/useFilter";
 import Loader from "@/components/Loader";
 import { Layout } from "@/components/Layout";
 import Header from "@/components/Header";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faBatteryEmpty,
+  faThumbsDown,
+} from "@fortawesome/free-solid-svg-icons";
 
 const PluginSection = styled.section`
   margin-top: 24px;
@@ -83,9 +88,18 @@ export default function PluginsHome() {
             </div>
             {queryPlugins.data ? (
               <PluginsSection>
-                {queryPlugins.data?.map((plugin: Plugin) => (
-                  <PluginCard key={plugin.id} plugin={plugin} />
-                ))}
+                {queryPlugins.data?.length > 0 ? (
+                  queryPlugins.data?.map((plugin: Plugin) => (
+                    <PluginCard key={plugin.id} plugin={plugin} />
+                  ))
+                ) : (
+                  <div className="w-full text-center">
+                    <FontAwesomeIcon icon={faThumbsDown} size="4x" />
+                    <h2 className="font-bold text-2xl">
+                      Nenhum plugin encontrado
+                    </h2>
+                  </div>
+                )}
               </PluginsSection>
             ) : (
               <Loader />
