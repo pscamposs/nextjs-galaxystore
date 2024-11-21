@@ -64,9 +64,26 @@ const authOptions: NextAuthOptions = {
       return token;
     },
     session: async ({ session, token }) => {
+      const profileResponse = await fetch(
+        `${process.env.API_URL}/user/profile`,
+        {
+          headers: {
+            Authorization: `Bearer ${token?.user.token}`,
+          },
+        }
+      );
+
+      if (profileResponse.ok) {
+        const profile = await profileResponse.json();
+        token.user.profile = profile;
+      } else {
+        signOut();
+      }
+
       if (token.user) {
         session.user = token.user as any;
       }
+
       return session;
     },
   },
