@@ -44,21 +44,21 @@ export default function Header() {
           visible ? "max-lg:h-72" : "max-lg:h-0"
         }`}
       >
-        <ul className="flex items-center gap-4 max-lg:mt-4 max-lg:flex-col max-lg:px-2">
+        <ul className="flex items-center gap-4 max-lg:mt-4 max-lg:flex-col max-lg:px-2 max-lg:w-full">
           <li className="hover:text-purple-800  transition-all">
-            <Link href="/">
+            <Link href="/" className="max-lg:py-2 max-lg:px-12">
               <FontAwesomeIcon icon={faHome} />
               <span className="px-1">Inicio</span>
             </Link>
           </li>
           <li className="hover:text-purple-800 transition-all">
-            <Link href="/plugins">
+            <Link href="/plugins" className="max-lg:py-2 max-lg:px-12">
               <FontAwesomeIcon icon={faPlug} />
               <span className="px-1">Plugins</span>
             </Link>
           </li>
           <li className="hover:text-purple-800  transition-all">
-            <Link href="/discord">
+            <Link href="/discord" className="max-lg:py-2 max-lg:px-12">
               <span>Discord</span>
             </Link>
           </li>
