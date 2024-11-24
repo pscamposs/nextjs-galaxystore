@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowDown, faShop } from "@fortawesome/free-solid-svg-icons";
@@ -8,6 +8,10 @@ import useModal from "@/hooks/useModal";
 import { centsToReal } from "@/utils/FormatUtils";
 import useCart from "@/hooks/useCart";
 import { useSession } from "next-auth/react";
+import { LoaderButton } from "../LoaderButton";
+import { fetchClient } from "@/libs/fetchClient";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 const CardContainer = styled.div`
   display: flex;
@@ -65,19 +69,30 @@ const CardButton = styled.button`
   }
 `;
 
-export default function PluginCard({
-  plugin,
-  edit = false,
-  setDialogOpen,
-  setEditPlugin,
-}: {
-  plugin: Plugin;
-  edit?: boolean;
-  setDialogOpen?: any;
-  setEditPlugin?: any;
-}) {
-  const { addItem } = useCart();
+export default function PluginCard({ plugin }: { plugin: Plugin }) {
+  const [loading, setLoading] = useState(false);
 
+  const router = useRouter();
+
+  const addItem = async (plugin: Plugin) => {
+    setLoading(true);
+    const response = await fetchClient(
+      `/cart/${plugin.id}`,
+      {
+        method: "PUT",
+      },
+      false
+    );
+    if (response.ok) {
+      toast.success("Plugin adicionado ao seu carrinho.");
+    } else if (response.status == 409) {
+      const data = await response.json();
+      toast.error(data.message);
+    } else {
+      router.push("/login");
+    }
+    setLoading(false);
+  };
   return (
     <CardContainer>
       <div>
@@ -96,9 +111,11 @@ export default function PluginCard({
           padding: 9,
         }}
       >
-        <CardButton onClick={() => addItem(plugin)}>
-          <FontAwesomeIcon icon={faShop} />
-          Comprar
+        <CardButton>
+          <LoaderButton onClick={() => addItem(plugin)} loading={loading}>
+            <FontAwesomeIcon icon={faShop} />
+            Comprar
+          </LoaderButton>
         </CardButton>
       </div>
     </CardContainer>
