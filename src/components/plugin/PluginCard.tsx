@@ -1,13 +1,10 @@
 import React, { useContext, useState } from "react";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowDown, faShop } from "@fortawesome/free-solid-svg-icons";
+import { faShop } from "@fortawesome/free-solid-svg-icons";
 import { Plugin } from "@/types/FilterTypes";
 import Image from "next/image";
-import useModal from "@/hooks/useModal";
 import { centsToReal } from "@/utils/FormatUtils";
-import useCart from "@/hooks/useCart";
-import { useSession } from "next-auth/react";
 import { LoaderButton } from "../LoaderButton";
 import { fetchClient } from "@/libs/fetchClient";
 import { toast } from "sonner";
