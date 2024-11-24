@@ -6,7 +6,6 @@ import { QueryClientProvider } from "@tanstack/react-query";
 import queryClient from "@/services/queryClient";
 import { FilterProvider } from "@/context/use-filter-context";
 import { SessionProvider } from "next-auth/react";
-import { CartContexProvider } from "@/context/use-cart-context";
 import { Toaster } from "sonner";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -28,9 +27,7 @@ export default function RootLayout({
         <QueryClientProvider client={queryClient}>
           <SessionProvider>
             <Toaster position="top-center" theme="dark" richColors />
-            <CartContexProvider>
-              <FilterProvider>{children}</FilterProvider>
-            </CartContexProvider>
+            <FilterProvider>{children}</FilterProvider>
           </SessionProvider>
         </QueryClientProvider>
       </body>
