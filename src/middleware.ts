@@ -4,7 +4,6 @@ import {
   withAuth,
 } from "next-auth/middleware";
 import { NextResponse } from "next/server";
-import { UserProfile } from "./types/FilterTypes";
 
 const middleware = async (request: NextRequestWithAuth) => {
   const isPrivateRoutes = request.nextUrl.pathname.startsWith("/admin");
