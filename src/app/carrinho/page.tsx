@@ -66,7 +66,7 @@ export default function Cart() {
             <Loader />
           ) : (
             <div className="flex justify-center py-8 flex-col gap-2">
-              {cart?.plugins ? (
+              {cart?.plugins.length > 0 ? (
                 cart.plugins.map((plugin: Plugin) => {
                   return (
                     <div
