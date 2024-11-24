@@ -8,7 +8,7 @@ import { PluginFilters } from "../../components/plugin/PluginFilters";
 import PluginCard from "../../components/plugin/PluginCard";
 import { useQuery } from "@tanstack/react-query";
 import { Category, FilterType, Plugin } from "@/types/FilterTypes";
-import { use, useEffect, useState } from "react";
+import { use, useEffect, useMemo, useState } from "react";
 import { useFilter } from "@/hooks/useFilter";
 import Loader from "@/components/Loader";
 import { Layout } from "@/components/Layout";
@@ -59,6 +59,8 @@ const fetchPlugins = async (category: string) => {
 
 export default function PluginsHome() {
   const [category, setCategory] = useState<string>("");
+  const { filterName } = useFilter();
+  const [plugins, setPlugins] = useState<Plugin[]>([]);
 
   const queryPlugins = useQuery({
     queryKey: ["plugins", category],
@@ -70,6 +72,22 @@ export default function PluginsHome() {
       setCategory("");
     } else setCategory(filter.toLowerCase());
   };
+  const filteredPlugins = useMemo(() => {
+    if (filterName) {
+      return queryPlugins.data?.filter((p) =>
+        p.name.toLowerCase().includes(filterName.toLowerCase())
+      );
+    }
+    return queryPlugins.data;
+  }, [filterName, queryPlugins.data]);
+
+  useEffect(() => {
+    if (filteredPlugins !== plugins) {
+      if (filteredPlugins) {
+        setPlugins(filteredPlugins);
+      }
+    }
+  }, [filteredPlugins, plugins]);
 
   return (
     <Layout header={<Header />}>
@@ -77,6 +95,7 @@ export default function PluginsHome() {
         <PluginInfoModal />
         <PluginSection>
           <h2>Nossos Plugins</h2>
+
           <div>
             <div>
               <PluginSearchWIcon />
@@ -86,10 +105,10 @@ export default function PluginsHome() {
                 categoryFilter={category}
               />
             </div>
-            {queryPlugins.data ? (
+            {plugins ? (
               <PluginsSection>
-                {queryPlugins.data?.length > 0 ? (
-                  queryPlugins.data?.map((plugin: Plugin) => (
+                {plugins.length > 0 ? (
+                  plugins.map((plugin: Plugin) => (
                     <PluginCard key={plugin.id} plugin={plugin} />
                   ))
                 ) : (
