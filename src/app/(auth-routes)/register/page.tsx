@@ -24,6 +24,8 @@ import { useRouter } from "next/navigation";
 import { signIn } from "next-auth/react";
 import { LoaderButton } from "@/components/LoaderButton";
 import { useState } from "react";
+import { Layout } from "@/components/Layout";
+import Header from "@/components/Header";
 
 export default function LoginPage() {
   const [loading, setLoading] = useState(false);
@@ -70,11 +72,10 @@ export default function LoginPage() {
   };
 
   return (
-    <ContentContainer>
+    <Layout header={<Header />}>
       <FormComponent>
         <FormHeader>
-          <Image src={logo} alt="Logo" />
-          <h1>Galaxy Store</h1>
+          <h1 className="text-4xl">Galaxy Store</h1>
           <p>Olá! é bom ter você aqui</p>
         </FormHeader>
         <form onSubmit={handleRegister}>
@@ -125,6 +126,6 @@ export default function LoginPage() {
           </div>
         </form>
       </FormComponent>
-    </ContentContainer>
+    </Layout>
   );
 }
