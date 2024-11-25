@@ -1,12 +1,10 @@
 "use client";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import logo from "../../../../public/res/images/galaxy-logo.png";
 import { signIn, useSession } from "next-auth/react";
 
 import { faEnvelope, faLock } from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
-import Image from "next/image";
 
 import FormComponent, {
   FormHeader,
@@ -15,7 +13,7 @@ import FormComponent, {
 } from "@/components/plugin/FormContainer";
 import PasswordInput from "@/components/PasswordInput";
 import { useRouter } from "next/navigation";
-import { toast, Toaster } from "sonner";
+import { toast } from "sonner";
 import { useEffect, useState } from "react";
 import { LoaderButton } from "@/components/LoaderButton";
 import { Layout } from "@/components/Layout";
