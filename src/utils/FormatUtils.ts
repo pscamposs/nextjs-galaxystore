@@ -1,5 +1,10 @@
-export function centsToReal(cents: number) {
-  return (cents / 100).toLocaleString("pt-BR", {
+export function centsToReal(cents: number): string {
+  if (typeof cents !== "number" || isNaN(cents)) {
+    throw new Error("O valor fornecido deve ser um número válido.");
+  }
+
+  const valueInReais = cents / 100;
+  return Math.max(valueInReais, 0).toLocaleString("pt-BR", {
     style: "currency",
     currency: "BRL",
   });
