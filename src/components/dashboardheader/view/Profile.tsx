@@ -1,8 +1,10 @@
 import { Layout } from "@/components/Layout";
 import { LoaderButton } from "@/components/LoaderButton";
 import { FormWrapper } from "@/components/plugin/FormContainer";
+import { fetchClient } from "@/libs/fetchClient";
 import { useSession } from "next-auth/react";
 import { useState } from "react";
+import { toast } from "sonner";
 
 export const Profile = () => {
   const { data: session } = useSession();
@@ -13,9 +15,22 @@ export const Profile = () => {
     setUserProfile((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
-  const handleSubmit = (e: any) => {
+  const handleSubmit = async (e: any) => {
     e.preventDefault();
-    console.log(userProfile);
+    const response = await fetchClient("/user/profile/password", {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        password: userProfile.password,
+        newpassword: userProfile.newpassword,
+      }),
+    });
+    if (response.ok) {
+      toast.success("Senha alterada com sucesso.");
+      setUserProfile({});
+    }
   };
 
   return (
