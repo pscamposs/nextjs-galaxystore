@@ -105,7 +105,9 @@ export default function PluginsHome() {
                 categoryFilter={category}
               />
             </div>
-            {plugins ? (
+            {queryPlugins.isLoading ? (
+              <Loader />
+            ) : (
               <PluginsSection>
                 {plugins.length > 0 ? (
                   plugins.map((plugin: Plugin) => (
@@ -120,8 +122,6 @@ export default function PluginsHome() {
                   </div>
                 )}
               </PluginsSection>
-            ) : (
-              <Loader />
             )}
           </div>
         </PluginSection>
