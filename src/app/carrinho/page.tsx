@@ -1,5 +1,4 @@
 "use client";
-import { ContentContainer } from "@/components/ContentContainer";
 import Header from "@/components/Header";
 import { Layout } from "@/components/Layout";
 import Loader from "@/components/Loader";
