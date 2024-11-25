@@ -18,6 +18,8 @@ import { useRouter } from "next/navigation";
 import { toast, Toaster } from "sonner";
 import { useEffect, useState } from "react";
 import { LoaderButton } from "@/components/LoaderButton";
+import { Layout } from "@/components/Layout";
+import Header from "@/components/Header";
 
 export default function LoginPage() {
   const router = useRouter();
@@ -45,7 +47,7 @@ export default function LoginPage() {
     }).then(({ ok, error }: any) => {
       if (ok) {
         toast.success("Logado com sucesso");
-        router.push("/perfil");
+        router.replace("/perfil");
       } else {
         toast.error("Usuário e ou senha incorretos.");
         console.log(error);
@@ -55,11 +57,10 @@ export default function LoginPage() {
   };
 
   return (
-    <div>
+    <Layout header={<Header />}>
       <FormComponent>
         <FormHeader>
-          <Image src={logo} alt="Logo" />
-          <h1>Galaxy Store</h1>
+          <h1 className="text-4xl">Galaxy Store</h1>
           <p>Seja bem-vindo, efetue o seu login</p>
         </FormHeader>
         <form onSubmit={handleLogin} autoSave="false">
@@ -77,7 +78,12 @@ export default function LoginPage() {
             <PasswordInput />
           </FormWrapper>
           <div>
-            <Link href="/esqueci-a-senha">Esqueci minha senha</Link>
+            <Link
+              href="/esqueci-a-senha"
+              className="text-purple-600 hover:text-purple-500"
+            >
+              Esqueci minha senha
+            </Link>
           </div>
           <div>
             <div>
@@ -97,6 +103,6 @@ export default function LoginPage() {
           </div>
         </form>
       </FormComponent>
-    </div>
+    </Layout>
   );
 }
