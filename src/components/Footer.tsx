@@ -1,74 +1,35 @@
 "use client";
 
 import Link from "next/link";
-import styled from "styled-components";
-
-const Footer = styled.footer`
-  width: 100vw;
-  position: fixed;
-  bottom: 0;
-`;
-
-const FooterContainer = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background-color: var(--secondary-dark);
-  padding: 2rem 4rem;
-  text-align: center;
-
-  color: aliceblue;
-  border-radius: 8px;
-
-  p {
-    color: var(--secondary-white);
-  }
-
-  ul {
-    list-style: none;
-  }
-
-  ul li {
-    display: inline;
-    margin-left: 8px;
-  }
-
-  ul li a {
-    color: var(--primary-white);
-    font-weight: 600;
-    text-decoration: none;
-    transition: color 0.2s;
-    &:hover {
-      color: var(--secondary-white);
-    }
-  }
-
-  @media (max-width: 768px) {
-    flex-direction: column;
-    gap: 32px;
-  }
-`;
 
 export default function FooterComponent() {
   return (
-    <Footer>
-      <FooterContainer>
-        <div>
+    <section className="w-dvw fixed bottom-0 px-12 py-6 bg-zinc-900">
+      <div className="flex justify-between items-center max-lg:flex-col max-lg:gap-8">
+        <div className="flex flex-col justify-center text-center">
           <h4>Copyright © Galaxy Store - 2024</h4>
-          <p> Este site não possui quaisquer vinculos com a Mojang AB.</p>
+          <p className="text-zinc-400">
+            Este site não possui quaisquer vinculos com a Mojang AB.
+          </p>
         </div>
-        <ul>
+        <ul className="flex gap-4">
           <li>
-            <Link href="/termos">Termos de Uso</Link>
+            <Link href="/termos" className="hover:text-purple-700">
+              Termos de Uso
+            </Link>
           </li>
           <li>
-            <Link href="/perfil">Sobre</Link>
+            <Link href="/perfil" className="hover:text-purple-700">
+              Sobre
+            </Link>
           </li>
           <li>
-            <Link href="/perfil">Suporte</Link>
+            <Link href="/perfil" className="hover:text-purple-700">
+              Suporte
+            </Link>
           </li>
         </ul>
-      </FooterContainer>
-    </Footer>
+      </div>
+    </section>
   );
 }
