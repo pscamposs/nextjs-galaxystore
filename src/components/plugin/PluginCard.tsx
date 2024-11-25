@@ -108,12 +108,10 @@ export default function PluginCard({ plugin }: { plugin: Plugin }) {
           padding: 9,
         }}
       >
-        <CardButton>
-          <LoaderButton onClick={() => addItem(plugin)} loading={loading}>
-            <FontAwesomeIcon icon={faShop} />
-            Comprar
-          </LoaderButton>
-        </CardButton>
+        <LoaderButton onClick={() => addItem(plugin)} loading={loading}>
+          <FontAwesomeIcon icon={faShop} className="mx-2" />
+          Comprar
+        </LoaderButton>
       </div>
     </CardContainer>
   );
