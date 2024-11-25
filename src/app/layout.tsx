@@ -1,7 +1,6 @@
 "use client";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import ModalContextProvider from "../context/use-modal-context";
 import { QueryClientProvider } from "@tanstack/react-query";
 import queryClient from "@/services/queryClient";
 import { FilterProvider } from "@/context/use-filter-context";
