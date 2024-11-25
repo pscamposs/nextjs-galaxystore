@@ -4,10 +4,8 @@ import { DashboardHeader } from "@/components/dashboardheader/DashboardHeader";
 import { HomeView } from "@/components/dashboardheader/view/Home";
 import { Layout } from "@/components/Layout";
 import Loader from "@/components/Loader";
-import Logout from "@/components/LogoutButton";
 
 import { UserProfile } from "@/types/FilterTypes";
-import { centsToReal } from "@/utils/FormatUtils";
 
 import { useSession } from "next-auth/react";
 
