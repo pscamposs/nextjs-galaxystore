@@ -1,53 +1,17 @@
 "use client";
-import styled from "styled-components";
-import { ContentContainer } from "../../components/ContentContainer";
 
-import PluginInfoModal from "../../components/modal/PluginInfoModal";
 import { PluginSearchWIcon } from "../../components/plugin/PluginSearchWIcon";
 import { PluginFilters } from "../../components/plugin/PluginFilters";
 import PluginCard from "../../components/plugin/PluginCard";
 import { useQuery } from "@tanstack/react-query";
-import { Category, FilterType, Plugin } from "@/types/FilterTypes";
-import { use, useEffect, useMemo, useState } from "react";
+import { Plugin } from "@/types/FilterTypes";
+import { useEffect, useMemo, useState } from "react";
 import { useFilter } from "@/hooks/useFilter";
 import Loader from "@/components/Loader";
 import { Layout } from "@/components/Layout";
 import Header from "@/components/Header";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faBatteryEmpty,
-  faThumbsDown,
-} from "@fortawesome/free-solid-svg-icons";
-
-const PluginSection = styled.section`
-  margin-top: 24px;
-  padding: 64px 156px;
-  width: 100%;
-  > div {
-    display: flex;
-    flex-direction: row;
-    gap: 32px;
-  }
-
-  @media (max-width: 768px) {
-    > div {
-      flex-direction: column;
-    }
-    padding: 16px;
-  }
-`;
-
-const PluginsSection = styled.section`
-  position: relative;
-  width: 100%;
-  display: grid;
-  grid-template-columns: repeat(auto-fill, 250px);
-  grid-gap: 32px;
-
-  @media (max-width: 768px) {
-    grid-template-columns: none;
-  }
-`;
+import { faThumbsDown } from "@fortawesome/free-solid-svg-icons";
 
 const fetchPlugins = async (category: string) => {
   const response = await fetch(
@@ -91,41 +55,35 @@ export default function PluginsHome() {
 
   return (
     <Layout header={<Header />}>
-      <ContentContainer>
-        <PluginInfoModal />
-        <PluginSection>
-          <h2>Nossos Plugins</h2>
+      <div className="p-16">
+        <h2 className="text-2xl">Nossos Plugins</h2>
 
+        <div className="flex gap-8 flex-wrap max-lg:justify-center ">
           <div>
-            <div>
-              <PluginSearchWIcon />
+            <PluginSearchWIcon />
 
-              <PluginFilters
-                onFilter={handleFilter}
-                categoryFilter={category}
-              />
-            </div>
-            {queryPlugins.isLoading ? (
-              <Loader />
-            ) : (
-              <PluginsSection>
-                {plugins.length > 0 ? (
-                  plugins.map((plugin: Plugin) => (
-                    <PluginCard key={plugin.id} plugin={plugin} />
-                  ))
-                ) : (
-                  <div className="w-full text-center">
-                    <FontAwesomeIcon icon={faThumbsDown} size="4x" />
-                    <h2 className="font-bold text-2xl">
-                      Nenhum plugin encontrado
-                    </h2>
-                  </div>
-                )}
-              </PluginsSection>
-            )}
+            <PluginFilters onFilter={handleFilter} categoryFilter={category} />
           </div>
-        </PluginSection>
-      </ContentContainer>
+          {queryPlugins.isLoading ? (
+            <Loader />
+          ) : (
+            <div className="flex gap-8 flex-wrap justify-center">
+              {plugins.length > 0 ? (
+                plugins.map((plugin: Plugin) => (
+                  <PluginCard key={plugin.id} plugin={plugin} />
+                ))
+              ) : (
+                <div className="w-full text-center">
+                  <FontAwesomeIcon icon={faThumbsDown} size="4x" />
+                  <h2 className="font-bold text-2xl">
+                    Nenhum plugin encontrado
+                  </h2>
+                </div>
+              )}
+            </div>
+          )}
+        </div>
+      </div>
     </Layout>
   );
 }
