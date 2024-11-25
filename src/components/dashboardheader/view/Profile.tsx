@@ -2,7 +2,7 @@ import { Layout } from "@/components/Layout";
 import { LoaderButton } from "@/components/LoaderButton";
 import { FormWrapper } from "@/components/plugin/FormContainer";
 import { useSession } from "next-auth/react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 export const Profile = () => {
   const { data: session } = useSession();
@@ -21,7 +21,7 @@ export const Profile = () => {
   return (
     <Layout>
       <section>
-        <form className="w-[80%] " onSubmit={handleSubmit}>
+        <form className="w-[80%] max-lg:w-full " onSubmit={handleSubmit}>
           <FormWrapper>
             <input
               name="username"
@@ -47,6 +47,7 @@ export const Profile = () => {
               name="password"
               value={userProfile.password}
               onChange={handleChange}
+              autoComplete="new-password"
               required
             />
           </FormWrapper>
