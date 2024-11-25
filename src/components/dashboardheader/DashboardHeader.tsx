@@ -24,6 +24,7 @@ import { PluginsView } from "./view/Plugins";
 import { signOut, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { deleteCookie } from "cookies-next";
+import { Profile } from "./view/Profile";
 
 const MenuItem = ({
   label,
@@ -106,7 +107,11 @@ export const DashboardHeader = ({ setView }: { setView: any }) => {
               icon={faShoppingBag}
               onClick={() => router.push("/plugins")}
             />
-            <MenuItem label="Perfil" icon={faUser} />
+            <MenuItem
+              label="Perfil"
+              icon={faUser}
+              onClick={() => handleChangeView("Perfil", <Profile />)}
+            />
             <MenuItem
               label="Sair da conta"
               icon={faSignOut}
