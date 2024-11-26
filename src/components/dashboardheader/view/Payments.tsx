@@ -14,7 +14,7 @@ interface IPaymentItem {
   subtotal: number;
 }
 
-const PaymentItem = (payment: IPaymentItem) => {
+const PaymentItem = ({ payment }: { payment: IPaymentItem }) => {
   const getPaymentMethod = (method: string) => {
     switch (method) {
       case "card":
@@ -87,16 +87,7 @@ export const PaymentsView = () => {
           </thead>
           <tbody className="">
             {payments.map((payment: IPaymentItem) => {
-              return (
-                <PaymentItem
-                  key={payment.createdAt}
-                  method={payment.method}
-                  createdAt={payment.createdAt}
-                  updatedAt={payment.updatedAt}
-                  status={payment.status}
-                  subtotal={payment.subtotal}
-                />
-              );
+              return <PaymentItem key={payment.createdAt} payment={payment} />;
             })}
           </tbody>
         </table>

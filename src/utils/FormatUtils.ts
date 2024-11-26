@@ -1,6 +1,6 @@
 export function centsToReal(cents: number): string {
   if (typeof cents !== "number" || isNaN(cents)) {
-    throw new Error("O valor fornecido deve ser um número válido.");
+    return "R$0,00";
   }
 
   const valueInReais = cents / 100;
@@ -8,6 +8,17 @@ export function centsToReal(cents: number): string {
     style: "currency",
     currency: "BRL",
   });
+}
+export function formatBytes(bytes: number, decimals = 2): string {
+  if (bytes === 0) return "0 B";
+
+  const k = 1024;
+  const sizes = ["B", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"];
+  const i = Math.floor(Math.log(bytes) / Math.log(k));
+
+  const value = parseFloat((bytes / Math.pow(k, i)).toFixed(decimals));
+
+  return `${value} ${sizes[i]}`;
 }
 
 export function timeAgo(dateString: string) {
