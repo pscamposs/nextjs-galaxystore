@@ -1,6 +1,7 @@
 import { centsToReal, timeAgo } from "@/utils/FormatUtils";
 import { useQuery } from "@tanstack/react-query";
 import Loader from "./Loader";
+import { fetchClient } from "@/libs/fetchClient";
 
 interface ICardRanking {
   username: string;
@@ -29,7 +30,7 @@ const CardRanking = (user: ICardRanking) => {
 };
 
 const fetchUserRanking = async () => {
-  const response = await fetch(`${process.env.API_URL}/ranking`);
+  const response = await fetchClient(`${process.env.API_URL}/ranking`);
   const data = response.json();
   return data;
 };
