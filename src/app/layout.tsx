@@ -6,6 +6,8 @@ import queryClient from "@/services/queryClient";
 import { FilterProvider } from "@/context/use-filter-context";
 import { SessionProvider } from "next-auth/react";
 import { Toaster } from "sonner";
+import ModalContextProvider from "@/context/use-modal-context";
+import PluginInfoModal from "@/components/modal/PluginInfoModal";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -26,7 +28,12 @@ export default function RootLayout({
         <QueryClientProvider client={queryClient}>
           <SessionProvider>
             <Toaster position="top-center" theme="dark" richColors />
-            <FilterProvider>{children}</FilterProvider>
+            <FilterProvider>
+              <ModalContextProvider>
+                <PluginInfoModal />
+                {children}
+              </ModalContextProvider>
+            </FilterProvider>
           </SessionProvider>
         </QueryClientProvider>
       </body>
