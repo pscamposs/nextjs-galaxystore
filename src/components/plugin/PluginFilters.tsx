@@ -1,68 +1,48 @@
-"use client";
-import { useFilter } from "@/hooks/useFilter";
 import { Category } from "@/types/FilterTypes";
 import { getIconByName } from "@/utils/IconUtils";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
 import { useQuery } from "@tanstack/react-query";
-import styled from "styled-components";
-import Loader from "../Loader";
+import { CategorySkeleton } from "../skeleton/CategorySkeleton";
 
-const PluginFilter = styled.div<{ selected: boolean }>`
-  width: 100%;
-  padding: 16px 8px;
-  margin-top: 8px;
-  background-color: ${(props) =>
-    props.selected ? "var(--draft-color-2)" : "var(--secondary-dark)"};
-  text-align: center;
-  cursor: pointer;
-  border-radius: 4px;
-  transition: 0.2s;
-  &:hover {
-    background-color: var(--draft-color);
-  }
-
-  svg {
-    font-size: 1.5rem;
-  }
-`;
-
-const FilterContainer = styled.div`
-  width: 100%;
-`;
-
-const fetchCategories = async () => {
-  const response = await fetch(`${process.env.API_URL}/categories`);
-  const json = (await response.json()) as Category[];
-  return json;
-};
-
-export function PluginFilters({
-  onFilter,
-  categoryFilter,
-}: {
+interface IFilterComponent {
   onFilter: (filter: string) => void;
   categoryFilter: string;
-}) {
-  const queryCategories = useQuery({
+}
+
+export const PluginFilters = ({
+  onFilter,
+  categoryFilter,
+}: IFilterComponent) => {
+  const { data: categories, isLoading } = useQuery({
     queryKey: ["categories"],
-    queryFn: fetchCategories,
+    queryFn: async () => {
+      const response = await fetch(`${process.env.API_URL}/categories`);
+      return (await response.json()) as Category[];
+    },
   });
 
-  return queryCategories.data ? (
-    <FilterContainer>
-      {queryCategories.data?.map((category) => (
-        <PluginFilter
-          selected={category.name.toLowerCase() === categoryFilter}
-          key={category.id}
-          onClick={() => onFilter(category.name)}
-        >
-          <FontAwesomeIcon icon={getIconByName(category.icon)} />
-          <p>{category.name}</p>
-        </PluginFilter>
-      ))}
-    </FilterContainer>
-  ) : (
-    <Loader />
+  return (
+    <div className="text-center mt-2 flex flex-col">
+      {isLoading ? (
+        <CategorySkeleton />
+      ) : (
+        categories?.map((category) => {
+          return (
+            <button
+              key={category.id}
+              className={`mt-2 rounded-sm ${
+                categoryFilter === category.name.toLocaleLowerCase()
+                  ? "bg-purple-900"
+                  : "bg-zinc-900"
+              } py-4 hover:bg-purple-800 transition-all `}
+              onClick={() => onFilter(category.name)}
+            >
+              <FontAwesomeIcon icon={getIconByName(category.icon)} />
+              <p>{category.name}</p>
+            </button>
+          );
+        })
+      )}
+    </div>
   );
-}
+};
