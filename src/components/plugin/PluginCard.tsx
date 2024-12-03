@@ -1,80 +1,25 @@
-import React, { useContext, useState } from "react";
-import styled from "styled-components";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faShop } from "@fortawesome/free-solid-svg-icons";
 import { Plugin } from "@/types/FilterTypes";
-import Image from "next/image";
 import { centsToReal } from "@/utils/FormatUtils";
+import Image from "next/image";
 import { LoaderButton } from "../LoaderButton";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faShop, faShoppingCart } from "@fortawesome/free-solid-svg-icons";
+import { useState } from "react";
 import { fetchClient } from "@/libs/fetchClient";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
+import useModal from "@/hooks/useModal";
 
-const CardContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  background-color: var(--secondary-dark);
-  text-align: center;
-  max-height: 340px;
-
-  padding: 16px 32px;
-
-  img {
-    max-width: 128px;
-    cursor: pointer;
-  }
-
-  &:hover {
-    transform: scale(1.01);
-    transition: 0.2s;
-  }
-`;
-
-const CardTag = styled.p`
-  background-color: var(--secondary-white);
-  color: var(--primary-white);
-  padding: 4px 2px;
-  border-radius: 4px;
-  margin: 4px auto;
-  width: 100px;
-`;
-
-const CardTitle = styled.h2`
-  margin: 8px 0;
-`;
-
-const CardPrice = styled.p`
-  margin: 8px 0;
-
-  font-size: 1.4rem;
-`;
-
-const CardButton = styled.button`
-  background-color: var(--primary-dark);
-  border: none;
-
-  color: var(--primary-white);
-  cursor: pointer;
-
-  width: 100%;
-  padding: 8px 32px;
-
-  svg {
-    margin-right: 5px;
-  }
-`;
-
-export default function PluginCard({ plugin }: { plugin: Plugin }) {
+export const PluginCard = ({ plugin }: { plugin: Plugin }) => {
   const [loading, setLoading] = useState(false);
-
   const router = useRouter();
 
-  const addItem = async (plugin: Plugin) => {
+  const { toggleModal } = useModal();
+
+  const addItem = async (plugin?: Plugin) => {
     setLoading(true);
     const response = await fetchClient(
-      `/cart/${plugin.id}`,
+      `/cart/${plugin?.id}`,
       {
         method: "PUT",
       },
@@ -90,29 +35,34 @@ export default function PluginCard({ plugin }: { plugin: Plugin }) {
     }
     setLoading(false);
   };
+
   return (
-    <CardContainer>
+    <div className="flex flex-col items-center text-center min-w-[200px]">
       <div>
         <Image
-          src={plugin.image || "/res/images/Default.svg"}
-          alt="pluginIcon"
-          width={128}
-          height={128}
+          alt="icon"
+          width={84}
+          height={64}
+          src={plugin.image}
+          className="cursor-pointer"
+          onClick={() => toggleModal(plugin)}
         />
-        <CardTag>{plugin.category.name || "Exemplo"}</CardTag>
-        <CardTitle>{plugin.name || "Nome de exemplo"}</CardTitle>
-        <CardPrice>{centsToReal(plugin.price) || "R$ 0,00"}</CardPrice>
       </div>
-      <div
-        style={{
-          padding: 9,
-        }}
-      >
-        <LoaderButton onClick={() => addItem(plugin)} loading={loading}>
-          <FontAwesomeIcon icon={faShop} className="mx-2" />
-          Comprar
+      <div className="w-full">
+        <p className="bg-zinc-900 p-2 rounded-sm">{plugin.category.name}</p>
+        <div className="py-2">
+          <h2 className="font-bold">{plugin.name}</h2>
+          <p>{centsToReal(plugin.price)}</p>
+        </div>
+        <LoaderButton
+          className="bg-purple-800 p-2 rounded-sm hover:bg-purple-900 transition-all w-full"
+          loading={loading}
+          onClick={() => addItem(plugin)}
+        >
+          <FontAwesomeIcon icon={faShoppingCart} />
+          <span className="ml-1 text-sm ">Adicionar ao carrinho</span>
         </LoaderButton>
       </div>
-    </CardContainer>
+    </div>
   );
-}
+};
