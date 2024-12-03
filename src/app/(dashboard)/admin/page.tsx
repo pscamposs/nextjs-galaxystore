@@ -1,7 +1,7 @@
 "use client";
 
-import { AdminDashboardHeader } from "@/components/adminheader/DashboardHeader";
-import { HomeView } from "@/components/dashboardheader/view/Home";
+import { AdminDashboardHeader } from "@/components/dashboard/admin/DashboardHeader";
+import { HomeView } from "@/components/dashboard/user/view/Home";
 import { Layout } from "@/components/Layout";
 
 import React, { useState } from "react";
