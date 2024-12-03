@@ -30,7 +30,7 @@ const authOptions: NextAuthOptions = {
           cookiesStore.set("galaxy-store.session", data.token);
 
           const profileResponse = await fetch(
-            `${process.env.API_URL}/user/profile`,
+            `${process.env.API_URL}/profile`,
             {
               headers: {
                 Authorization: `Bearer ${data.token}`,
@@ -64,14 +64,11 @@ const authOptions: NextAuthOptions = {
       return token;
     },
     session: async ({ session, token }) => {
-      const profileResponse = await fetch(
-        `${process.env.API_URL}/user/profile`,
-        {
-          headers: {
-            Authorization: `Bearer ${token?.user.token}`,
-          },
-        }
-      );
+      const profileResponse = await fetch(`${process.env.API_URL}/profile`, {
+        headers: {
+          Authorization: `Bearer ${token?.user.token}`,
+        },
+      });
 
       if (profileResponse.ok) {
         const profile = await profileResponse.json();
