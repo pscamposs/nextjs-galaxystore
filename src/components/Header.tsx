@@ -14,8 +14,6 @@ import {
 import { useSession } from "next-auth/react";
 
 export default function Header() {
-  const { status } = useSession();
-
   const [visible, setVisible] = useState(false);
 
   const handleOpenMenu = () => {
@@ -82,7 +80,7 @@ export default function Header() {
           </li>
           <li>
             <Link
-              href={status == "authenticated" ? "/perfil" : "/login"}
+              href={"/perfil"}
               className="bg-purple-950 py-2 px-6 hover:bg-purple-900 max-lg:block"
             >
               <FontAwesomeIcon icon={faUser} />
