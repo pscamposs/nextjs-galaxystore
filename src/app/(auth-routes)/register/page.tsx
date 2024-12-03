@@ -28,6 +28,12 @@ export default function LoginPage() {
     let email = formData.get("email");
 
     let password = formData.get("password");
+    let repeatPassword = formData.get("repeat_password");
+
+    if (repeatPassword != password) {
+      toast.error("As senhas não coincidem.");
+      return;
+    }
 
     let response = await fetch(`${process.env.API_URL}/auth/register`, {
       method: "POST",
@@ -83,7 +89,7 @@ export default function LoginPage() {
 
           <Input
             type="password"
-            name="repeat_password"
+            name="password"
             label="Senha de login"
             icon={faLock}
           />
