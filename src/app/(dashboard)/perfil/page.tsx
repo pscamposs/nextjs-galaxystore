@@ -1,7 +1,7 @@
 "use client";
 
-import { DashboardHeader } from "@/components/dashboardheader/DashboardHeader";
-import { HomeView } from "@/components/dashboardheader/view/Home";
+import { DashboardHeader } from "@/components/dashboard/user/DashboardHeader";
+import { HomeView } from "@/components/dashboard/user/view/Home";
 import { Layout } from "@/components/Layout";
 import Loader from "@/components/Loader";
 
