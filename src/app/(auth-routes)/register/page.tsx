@@ -4,12 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import { faEnvelope, faLock, faUser } from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
-import FormComponent, {
-  FormHeader,
-  FormWrapper,
-  Separator,
-} from "@/components/plugin/FormContainer";
-import PasswordInput from "@/components/PasswordInput";
+
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { signIn } from "next-auth/react";
@@ -17,6 +12,7 @@ import { LoaderButton } from "@/components/LoaderButton";
 import { useState } from "react";
 import { Layout } from "@/components/Layout";
 import Header from "@/components/Header";
+import { Input } from "@/components/input/Input";
 
 export default function LoginPage() {
   const [loading, setLoading] = useState(false);
@@ -64,48 +60,57 @@ export default function LoginPage() {
 
   return (
     <Layout header={<Header />}>
-      <FormComponent>
-        <FormHeader>
+      <section className="max-w-[500px] m-auto px-8 py-16">
+        <div className="text-center">
           <h1 className="text-4xl">Galaxy Store</h1>
           <p>Olá! é bom ter você aqui</p>
-        </FormHeader>
+        </div>
         <form onSubmit={handleRegister}>
-          <FormWrapper>
-            <FontAwesomeIcon icon={faUser} />
-            <input type="text" placeholder="Seu usuário" name="username" />
-          </FormWrapper>
-          <FormWrapper>
-            <FontAwesomeIcon icon={faEnvelope} />
-            <input type="text" placeholder="Seu email" name="email" />
-          </FormWrapper>
-          <FormWrapper>
-            <FontAwesomeIcon icon={faLock} />
-            <PasswordInput />
-          </FormWrapper>
-          <FormWrapper>
-            <FontAwesomeIcon icon={faLock} />
-            <input
-              type="password"
-              placeholder="Repita sua senha"
-              name="repeat_password"
-            />
-          </FormWrapper>
-          <FormWrapper>
-            <label htmlFor="terms" className="text-zinc-500">
-              Ao criar sua conta você declara que leu e aceitou os {""}
-              <Link href="/termos" target="_blank">
-                termos e condições.
-              </Link>
-            </label>
-          </FormWrapper>
+          <Input
+            type="text"
+            placeholder="Ex. GalaxyUser"
+            name="username"
+            label="Usuário"
+            icon={faUser}
+          />
+
+          <Input
+            type="email"
+            placeholder="Ex. galaxy@galaxystore.com"
+            name="email"
+            icon={faEnvelope}
+          />
+
+          <Input
+            type="password"
+            name="repeat_password"
+            label="Senha de login"
+            icon={faLock}
+          />
+          <Input
+            type="password"
+            name="repeat_password"
+            label="Repita a senha"
+            icon={faLock}
+          />
+
+          <div className="text-zinc-700 font-bold py-2">
+            Ao criar sua conta você declara que leu e aceitou os {""}
+            <Link href="/termos" target="_blank" className="text-zinc-500">
+              termos e condições.
+            </Link>
+          </div>
 
           <div>
             <div>
-              <LoaderButton loading={loading} type="submit">
+              <LoaderButton
+                loading={loading}
+                type="submit"
+                className="bg-zinc-900 w-full py-4 font-bold hover:bg-zinc-800 transition-all rounded-md"
+              >
                 Criar minha conta
               </LoaderButton>
             </div>
-            <Separator></Separator>
             <div>
               <p>
                 Já possuo conta, quero{" "}
@@ -116,7 +121,7 @@ export default function LoginPage() {
             </div>
           </div>
         </form>
-      </FormComponent>
+      </section>
     </Layout>
   );
 }
