@@ -1,8 +1,5 @@
 "use client";
 
-import { PluginSearchWIcon } from "../../components/plugin/PluginSearchWIcon";
-import { PluginFilters } from "../../components/plugin/PluginFilters";
-import PluginCard from "../../components/plugin/PluginCard";
 import { useQuery } from "@tanstack/react-query";
 import { Plugin } from "@/types/FilterTypes";
 import { useEffect, useMemo, useState } from "react";
@@ -11,7 +8,12 @@ import Loader from "@/components/Loader";
 import { Layout } from "@/components/Layout";
 import Header from "@/components/Header";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faThumbsDown } from "@fortawesome/free-solid-svg-icons";
+import { faSearch, faThumbsDown } from "@fortawesome/free-solid-svg-icons";
+import { PluginFilterSkeleton } from "@/components/skeleton/PluginFilterSkeleton";
+import { PluginSkeleton } from "@/components/skeleton/PluginSkeleton";
+import { Input } from "@/components/input/Input";
+import { PluginFilters } from "@/components/plugin/PluginFilters";
+import { PluginCard } from "@/components/plugin/PluginCard";
 
 const fetchPlugins = async (category: string) => {
   const response = await fetch(
@@ -23,10 +25,10 @@ const fetchPlugins = async (category: string) => {
 
 export default function PluginsHome() {
   const [category, setCategory] = useState<string>("");
-  const { filterName } = useFilter();
+  const [filterName, setFilterName] = useState("");
   const [plugins, setPlugins] = useState<Plugin[]>([]);
 
-  const queryPlugins = useQuery({
+  const { data: pluginsData, isLoading } = useQuery({
     queryKey: ["plugins", category],
     queryFn: () => fetchPlugins(category),
   });
@@ -38,12 +40,12 @@ export default function PluginsHome() {
   };
   const filteredPlugins = useMemo(() => {
     if (filterName) {
-      return queryPlugins.data?.filter((p) =>
+      return pluginsData?.filter((p) =>
         p.name.toLowerCase().includes(filterName.toLowerCase())
       );
     }
-    return queryPlugins.data;
-  }, [filterName, queryPlugins.data]);
+    return pluginsData;
+  }, [filterName, pluginsData]);
 
   useEffect(() => {
     if (filteredPlugins !== plugins) {
@@ -58,28 +60,35 @@ export default function PluginsHome() {
       <div className="p-16">
         <h2 className="text-2xl">Nossos Plugins</h2>
 
-        <div className="flex gap-8 flex-wrap max-lg:justify-center ">
-          <div>
-            <PluginSearchWIcon />
+        <div className="flex gap-8 max-lg:flex-col max-lg:justify-center items-center">
+          <div className="min-w-[250px]">
+            <Input
+              type="search"
+              label="Buscar plugin"
+              icon={faSearch}
+              placeholder="Ex. GalaxyPlugin"
+              onChange={(e) => setFilterName(e.target.value)}
+            />
 
             <PluginFilters onFilter={handleFilter} categoryFilter={category} />
           </div>
-          {queryPlugins.isLoading ? (
-            <Loader />
-          ) : (
+          {isLoading ? (
+            <div className="flex flex-wrap gap-4">
+              <PluginSkeleton />
+              <PluginSkeleton />
+              <PluginSkeleton />
+              <PluginSkeleton />
+            </div>
+          ) : plugins.length ? (
             <div className="flex gap-8 flex-wrap justify-center">
-              {plugins.length > 0 ? (
-                plugins.map((plugin: Plugin) => (
-                  <PluginCard key={plugin.id} plugin={plugin} />
-                ))
-              ) : (
-                <div className="w-full text-center">
-                  <FontAwesomeIcon icon={faThumbsDown} size="4x" />
-                  <h2 className="font-bold text-2xl">
-                    Nenhum plugin encontrado
-                  </h2>
-                </div>
-              )}
+              {plugins.map((plugin: Plugin) => (
+                <PluginCard plugin={plugin} key={plugin.id} />
+              ))}
+            </div>
+          ) : (
+            <div className="text-zinc-400 text-center w-full">
+              <FontAwesomeIcon icon={faThumbsDown} size="4x" />
+              <h2 className="text-sm">Nenhum plugin encontrado.</h2>
             </div>
           )}
         </div>
