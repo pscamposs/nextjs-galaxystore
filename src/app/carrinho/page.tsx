@@ -1,9 +1,9 @@
 "use client";
 import Header from "@/components/Header";
+import { Input } from "@/components/input/Input";
 import { Layout } from "@/components/Layout";
 import Loader from "@/components/Loader";
 import { LoaderButton } from "@/components/LoaderButton";
-import { FormWrapper } from "@/components/plugin/FormContainer";
 import { fetchClient } from "@/libs/fetchClient";
 import { Plugin } from "@/types/FilterTypes";
 import { centsToReal } from "@/utils/FormatUtils";
@@ -28,7 +28,7 @@ export default function Cart() {
 
   const {
     data: cart,
-    isFetching,
+    isLoading,
     refetch,
   } = useQuery({
     queryKey: ["cart"],
@@ -61,7 +61,7 @@ export default function Cart() {
             <h2 className="text-3xl font-bold text-zinc-100">Meu pedido</h2>
             <p className="text-zinc-200">Confira seu carrinho de compras</p>
           </div>
-          {isFetching ? (
+          {isLoading ? (
             <Loader />
           ) : (
             <div className="flex justify-center py-8 flex-col gap-2">
@@ -108,15 +108,13 @@ export default function Cart() {
           )}
         </section>
         <section>
-          {isFetching ? (
+          {isLoading ? (
             <Loader />
           ) : (
             <>
-              <div>
+              <div className="py-2">
                 <h2 className="text-2xl">Cupom de desconto</h2>
-                <FormWrapper>
-                  <input placeholder="50GALAXY" />
-                </FormWrapper>
+                <Input placeholder="50GALAXY" />
               </div>
               <div className="text-zinc-100 font-bold text-lg bg-zinc-900 px-4 py-8">
                 <div className="flex justify-between">
