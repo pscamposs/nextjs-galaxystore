@@ -17,7 +17,7 @@ export const fetchClient = async (
     },
   });
 
-  if ((await response).status == 401 && redirect) {
+  if (!(await response).ok && redirect) {
     await signOut();
   }
 
