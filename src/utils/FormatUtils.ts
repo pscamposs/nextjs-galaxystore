@@ -1,4 +1,4 @@
-export function centsToReal(cents: number): string {
+export function centsToReal(cents: number | string): string {
   if (typeof cents !== "number" || isNaN(cents)) {
     return "R$0,00";
   }

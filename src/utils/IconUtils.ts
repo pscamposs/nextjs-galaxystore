@@ -11,5 +11,5 @@ export const getIconByName = (name: string): IconDefinition | IconProp => {
       )}` as keyof typeof SolidIcons
     ];
 
-  return (icon as IconDefinition) || "question-circle";
+  return icon || SolidIcons.faQuestion;
 };

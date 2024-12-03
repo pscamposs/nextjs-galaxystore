@@ -6,6 +6,14 @@ export enum FilterType {
   OPCIONAIS,
 }
 
+interface Update {
+  id: string;
+  version: string;
+  description: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
 export interface Category {
   id: string;
   icon: string;
@@ -17,9 +25,11 @@ export interface Plugin {
   name: string;
   category: Category;
   description: string;
+  downloads: number;
   image: string;
   price: number;
-  version: string;
+  version: Update;
+  updates: Update[];
 }
 
 export interface ICart {

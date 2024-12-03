@@ -1,3 +1,4 @@
+import GeneralContent from "@/components/modal/(tabs)/GeneralContent";
 import { Plugin } from "@/types/FilterTypes";
 import { createContext, useState } from "react";
 
@@ -5,9 +6,9 @@ import { createContext, useState } from "react";
 
 interface ModalContextProps {
   isOpen: boolean;
-  tab: string;
+  tab: { label: string; view: any };
   toggleModal: (plugin: any) => void;
-  toggleTab: (tab: string) => void;
+  toggleTab: (view: any) => void;
   plugin?: Plugin;
 }
 
@@ -20,15 +21,25 @@ export default function ModalContextProvider({
 }) {
   const [isOpen, setIsOpen] = useState(false);
   const [plugin, setPlugin] = useState<Plugin | undefined>();
-  const [tab, setTab] = useState("Geral");
+  const [tab, setTab] = useState({
+    label: "Geral",
+    view: <GeneralContent />,
+  });
 
   const toggleModal = (plugin: any) => {
+    if (!plugin) {
+      setIsOpen((value) => !value);
+      return;
+    }
     setPlugin(plugin);
     setIsOpen((value) => !value);
   };
 
-  const toggleTab = (tab: string) => {
-    setTab(tab);
+  const toggleTab = (view: any) => {
+    setTab({
+      label: view[0],
+      view: view[1],
+    });
   };
 
   return (
