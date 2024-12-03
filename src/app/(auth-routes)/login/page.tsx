@@ -6,18 +6,13 @@ import { signIn, useSession } from "next-auth/react";
 import { faEnvelope, faLock } from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
 
-import FormComponent, {
-  FormHeader,
-  FormWrapper,
-  Separator,
-} from "@/components/plugin/FormContainer";
-import PasswordInput from "@/components/PasswordInput";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { useEffect, useState } from "react";
 import { LoaderButton } from "@/components/LoaderButton";
 import { Layout } from "@/components/Layout";
 import Header from "@/components/Header";
+import { Input } from "@/components/input/Input";
 
 export default function LoginPage() {
   const router = useRouter();
@@ -56,25 +51,23 @@ export default function LoginPage() {
 
   return (
     <Layout header={<Header />}>
-      <FormComponent>
-        <FormHeader>
+      <section className="max-w-[500px] m-auto px-8 py-16">
+        <div className="text-center">
           <h1 className="text-4xl">Galaxy Store</h1>
           <p>Seja bem-vindo, efetue o seu login</p>
-        </FormHeader>
+        </div>
         <form onSubmit={handleLogin} autoSave="false">
-          <FormWrapper>
-            <FontAwesomeIcon icon={faEnvelope} />
-            <input
-              type="text"
-              placeholder="Nome de usuário ou email"
-              name="username"
-              required
-            />
-          </FormWrapper>
-          <FormWrapper>
-            <FontAwesomeIcon icon={faLock} />
-            <PasswordInput />
-          </FormWrapper>
+          <Input
+            type="text"
+            placeholder="Nome de usuário ou email"
+            name="username"
+            required
+            label="Nome de usuário ou e-mail"
+            icon={faEnvelope}
+          />
+
+          <Input type="password" label="Senha" name="password" icon={faLock} />
+
           <div>
             <Link
               href="/esqueci-a-senha"
@@ -85,11 +78,14 @@ export default function LoginPage() {
           </div>
           <div>
             <div>
-              <LoaderButton loading={loading} type="submit">
+              <LoaderButton
+                loading={loading}
+                type="submit"
+                className="bg-zinc-900 w-full py-4 font-bold hover:bg-zinc-800 transition-all rounded-md"
+              >
                 Fazer Login
               </LoaderButton>
             </div>
-            <Separator></Separator>
             <div>
               <p>
                 Não possuo conta, quero{" "}
@@ -100,7 +96,7 @@ export default function LoginPage() {
             </div>
           </div>
         </form>
-      </FormComponent>
+      </section>
     </Layout>
   );
 }
