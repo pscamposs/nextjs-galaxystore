@@ -1,84 +1,46 @@
-import { Suspense, useContext, useState } from "react";
-import styled from "styled-components";
+import { useContext, useState, useEffect } from "react";
 import { ModalContext } from "../../context/use-modal-context";
-import PluginCard from "../plugin/PluginCard";
-import ModalTab from "./ModalTabs";
-import GeneralContent from "./(tabs)/GeneralContent";
-import PermissionsContent from "./(tabs)/PermissionContent";
-import UpdatesContent from "./(tabs)/UpdatesContent";
-import CommentsContent from "./(tabs)/CommentsContent";
-
-const ModalContainer = styled.div`
-  visibility: hidden;
-  /* visibility: ${(props) => (props.isVisible ? "visible" : "hidden")}; */
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-  /* height: ${(props) => (props.isVisible ? "100%" : "0")}; */
-  z-index: 9999;
-`;
-
-const ModalMask = styled.div`
-  background-color: rgba(0, 0, 0, 0.5);
-  height: 100%;
-  width: 100%;
-`;
-
-const ModalContent = styled.div`
-  position: fixed;
-  bottom: 0;
-  background-color: var(--secondary-dark);
-  width: 100%;
-  /* height: ${(props) => (props.isVisible ? "550px" : "0")}; */
-  transition: 0.3s all ease-in;
-  padding: 8px 16px;
-
-  > h2 {
-    font-weight: 400;
-    font-size: 16px;
-    border-bottom: 1px solid var(--secondary-white);
-    padding: 4px 0;
-  }
-`;
-
-const ModalInfo = styled.div`
-  margin: 32px 0;
-  display: flex;
-  p {
-    font-weight: 600;
-    text-transform: uppercase;
-  }
-`;
-
-const ModalTabsContainer = styled.div`
-  margin: 32px 0;
-`;
+import ModalTabs from "./ModalTabs";
 
 export default function PluginInfoModal() {
-  const { isOpen, toggleModal, tab, plugin } = useContext(ModalContext);
+  const { isOpen, toggleModal, tab } = useContext(ModalContext);
+  const [height, setHeight] = useState(0);
+
+  useEffect(() => {
+    if (isOpen) {
+      setHeight(500);
+    } else {
+      setHeight(0);
+    }
+  }, [isOpen]);
+
+  if (!isOpen && height === 0) return null;
 
   return (
-    <ModalContainer>
-      <ModalMask onClick={() => toggleModal({})} />
-      <ModalContent>
-        <h2>Detalhes do Plugin</h2>
-        <ModalInfo>
-          {/* <PluginCard plugin={plugin} edit={false} />
-          <p>Downloads: {plugin?.downloads}</p> */}
-        </ModalInfo>
-        <ModalTabsContainer>
-          <ModalTab target="Geral" />
-          {/* <ModalTab target="Permissões" />
-          <ModalTab target="Atualizações" />
-          <ModalTab target="Comentários" /> */}
-        </ModalTabsContainer>
-        <Suspense fallback={<div>Carregando conteúdo...</div>}>
-          {tab === "Geral" && <GeneralContent />}
-          {/* {tab === "Permissões" && <PermissionsContent />}
-          {tab === "Atualizações" && <UpdatesContent />}
-          {tab === "Comentários" && <CommentsContent />} */}
-        </Suspense>
-      </ModalContent>
-    </ModalContainer>
+    <div
+      className="fixed z-10 top-0 left-0 w-full h-dvh bg-zinc-900/25 "
+      onClick={() => {
+        toggleModal(null);
+      }}
+    >
+      <div
+        className="bg-zinc-800 p-2 transition-all z-20 overflow-y-auto absolute left-0 right-0 bottom-0 "
+        style={{
+          height: `${height}px`,
+          transition: "height 0.3s ease",
+        }}
+        onClick={(e) => {
+          e.stopPropagation();
+        }}
+      >
+        <h1 className="text-lg p-2 font-bold border-b-2 border-zinc-700">
+          Informações do Plugin
+        </h1>
+        <section className="py-4">
+          <ModalTabs />
+        </section>
+        <section>{tab.view}</section>
+      </div>
+    </div>
   );
 }
