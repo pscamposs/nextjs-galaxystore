@@ -32,6 +32,7 @@ export default function LoginPage() {
 
     if (repeatPassword != password) {
       toast.error("As senhas não coincidem.");
+      setLoading(false);
       return;
     }
 
