@@ -30,7 +30,7 @@ const CardRanking = (user: ICardRanking) => {
 };
 
 const fetchUserRanking = async () => {
-  const response = await fetchClient(`${process.env.API_URL}/ranking`);
+  const response = await fetchClient(`/ranking`);
   const data = response.json();
   return data;
 };
