@@ -34,12 +34,13 @@ export default function LoginPage() {
     let password = formData.get("password");
 
     signIn("credentials", {
-      redirect: true,
-      callbackUrl: "/perfil",
+      redirect: false,
+      username,
       password,
     }).then(({ ok, error }: any) => {
       if (ok) {
         toast.success("Logado com sucesso");
+        router.push("/profile");
       } else {
         toast.error("Usuário e ou senha incorretos.");
       }
