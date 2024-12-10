@@ -20,7 +20,6 @@ export const HomeView = () => {
     const response = await fetchClient("/payment");
     const data = await response.json();
     const paid = data.filter((payment: any) => payment.status === "paid");
-
     const total = paid.reduce((acc: number, payment: any) => {
       return acc + payment.subtotal;
     }, 0);

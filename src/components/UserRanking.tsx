@@ -44,7 +44,7 @@ export const UserRanking = () => {
   return (
     <div className="text-center bg-zinc-900 max-h-[500px] w-full max-w-[600px] py-4 rounded">
       <h2 className="font-medium">Ranking dos Clientes</h2>
-      {data?.users.length > 0 ? (
+      {data?.users ? (
         <section className="py-4 overflow-y-auto overflow-x-auto h-full overflow-hidden">
           {data.users.map((user: ICardRanking) => {
             return (

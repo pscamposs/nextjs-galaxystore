@@ -119,7 +119,7 @@ export const AdminDashboardHeader = ({ setView }: { setView: any }) => {
           </ul>
         </div>
       </section>
-      <nav className=" w-[90%] m-auto p-4 absolute -bottom-8 max-md:-bottom-20 left-0 right-0 overflow-x-auto">
+      <nav className=" w-[90%] m-auto p-4 absolute -bottom-6 max-md:-bottom-20 left-0 right-0 overflow-x-auto">
         <ul className="flex gap-2">
           <NavItem
             label="Início"

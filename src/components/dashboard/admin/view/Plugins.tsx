@@ -143,7 +143,7 @@ export const PluginsView = ({
                 return (
                   <div
                     key={plugin.id}
-                    className="relative flex items-center gap-4 cursor-default hover:scale-105 transition-all border-l-2 border-zinc-600 px-2"
+                    className="relative flex items-center gap-4 cursor-default hover:scale-105 transition-all  px-2"
                   >
                     <div className="bg-zinc-900 p-6">
                       <Image
@@ -160,7 +160,7 @@ export const PluginsView = ({
                         </h2>
                         <p className="font-bold text-2xl">{plugin.name}</p>
                         <span className="font-medium text-zinc-500">
-                          0 Downloads
+                          {plugin.downloads} Downloads
                         </span>
                         <p className="py-2 text-zinc-400 font-bold">
                           {centsToReal(plugin.price)}

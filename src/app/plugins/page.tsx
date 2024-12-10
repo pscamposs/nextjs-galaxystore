@@ -88,7 +88,9 @@ export default function PluginsHome() {
           ) : (
             <div className="text-zinc-400 text-center w-full">
               <FontAwesomeIcon icon={faThumbsDown} size="4x" />
-              <h2 className="text-sm">Nenhum plugin encontrado.</h2>
+              <h2 className="text-sm">
+                Nenhum plugin encontrado com esse filtro.
+              </h2>
             </div>
           )}
         </div>

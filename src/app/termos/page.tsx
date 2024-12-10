@@ -8,7 +8,7 @@ export default function TermsHome() {
     <Layout header={<Header />}>
       <section className="space-y-4 p-16">
         <h2>
-          <span className="text-xl">Política Privacidade</span>
+          <span className="text-xl text-purple-600">Política Privacidade</span>
         </h2>
         <p>
           <span>
@@ -69,7 +69,9 @@ export default function TermsHome() {
           <span></span>
         </p>
         <h3>
-          <span className="text-xl">Compromisso do Usuário</span>
+          <span className="text-xl text-purple-600">
+            Compromisso do Usuário
+          </span>
         </h3>
         <p>
           <span>
@@ -103,7 +105,7 @@ export default function TermsHome() {
           </li>
         </ul>
         <h3>
-          <span className="text-xl">Mais informações</span>
+          <span className="text-xl text-purple-600">Mais informações</span>
         </h3>
         <p>
           <span>

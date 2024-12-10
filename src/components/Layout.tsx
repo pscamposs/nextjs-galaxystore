@@ -7,7 +7,7 @@ interface FooProps extends React.PropsWithChildren {
 }
 export const Layout = ({ header, ...props }: FooProps) => {
   return (
-    <div className="w-full relative pb-52">
+    <div className="w-full relative pb-52 h-full overflow-y-auto">
       {header}
       {props.children}
       <FooterComponent />

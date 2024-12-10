@@ -6,7 +6,7 @@ export enum FilterType {
   OPCIONAIS,
 }
 
-interface Update {
+export interface Update {
   id: string;
   version: string;
   description: string;

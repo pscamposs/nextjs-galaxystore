@@ -7,7 +7,7 @@ import { createContext, useState } from "react";
 interface ModalContextProps {
   isOpen: boolean;
   tab: { label: string; view: any };
-  toggleModal: (plugin: any) => void;
+  toggleModal: (plugin?: Plugin) => void;
   toggleTab: (view: any) => void;
   plugin?: Plugin;
 }
@@ -26,7 +26,7 @@ export default function ModalContextProvider({
     view: <GeneralContent />,
   });
 
-  const toggleModal = (plugin: any) => {
+  const toggleModal = (plugin?: Plugin) => {
     if (!plugin) {
       setIsOpen((value) => !value);
       return;

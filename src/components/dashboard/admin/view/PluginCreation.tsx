@@ -10,7 +10,7 @@ import { LoaderButton } from "@/components/LoaderButton";
 import { CategoryCreation } from "./CategoryCreation";
 import { useQuery } from "@tanstack/react-query";
 import { fetchClient } from "@/libs/fetchClient";
-import { Category } from "@/types/FilterTypes";
+import { Category, Plugin } from "@/types/FilterTypes";
 import { useState } from "react";
 import { toast } from "sonner";
 import Loader from "@/components/Loader";
@@ -71,11 +71,20 @@ export const PluginCreation = ({
     if (!response.ok) {
       const data = await response.json();
       toast.error(data.message || "Não foi possível criar o plugin.");
-      return;
+    } else {
+      setView("Plugins", <PluginsView setView={setView} />);
+      const plugin = (await response.json()) as Plugin;
+      const upload = await fetchClient(`/plugins/${plugin.version.id}/upload`, {
+        method: "POST",
+        body: formData,
+      });
+      const uploadData = await upload.json();
+      if (upload.ok) {
+        toast.success("Plugin criado com sucesso.");
+      } else {
+        toast.error(uploadData.message || "Erro ao fazer upload do plugin.");
+      }
     }
-
-    toast.success("Plugin criado com sucesso.");
-    setView("Plugins", <PluginsView setView={setView} />);
 
     setLoading(false);
   }
@@ -111,6 +120,7 @@ export const PluginCreation = ({
             />
             <TextArea label="Descrição" name="description" />
             <FileInput
+              name="file"
               label="Midia"
               description="Aceita arquivos jar, rar e zip."
               accept=".jar"

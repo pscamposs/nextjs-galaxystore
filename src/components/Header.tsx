@@ -11,7 +11,6 @@ import {
   faPlug,
   faUser,
 } from "@fortawesome/free-solid-svg-icons";
-import { useSession } from "next-auth/react";
 
 export default function Header() {
   const [visible, setVisible] = useState(false);
@@ -23,13 +22,11 @@ export default function Header() {
   return (
     <header className="flex items-center justify-between bg-zinc-900 max-lg:px-4 relative z-10">
       <section className="px-12 py-4 flex justify-between items-center flex-wrap gap-2 max-lg:px-4">
-        <div className="flex items-center gap-4">
-          <Link href="/">
+        <div className=" gap-4">
+          <Link href="/" className="flex items-center gap-4">
             <Image src={logo} alt="logo" width={40} height={50} />
-          </Link>
-          <div className="cursor-default">
             <h1 className="text-xl font-bold">Galaxy Store</h1>
-          </div>
+          </Link>
         </div>
       </section>
       <FontAwesomeIcon
@@ -65,7 +62,7 @@ export default function Header() {
           <li>
             <Link
               href="/carrinho"
-              className="bg-zinc-800 p-2 rounded-sm hover:bg-zinc-700"
+              className="bg-zinc-800 p-2 rounded-md hover:bg-zinc-700"
             >
               <FontAwesomeIcon icon={faCartPlus} />
             </Link>
@@ -73,7 +70,7 @@ export default function Header() {
           <li>
             <Link
               href="/register"
-              className="bg-zinc-800 py-2 px-6 rounded-sm hover:bg-zinc-700 max-lg:block"
+              className="bg-zinc-800 py-2 px-6 rounded-md hover:bg-zinc-700 max-lg:block"
             >
               <span>Criar conta</span>
             </Link>

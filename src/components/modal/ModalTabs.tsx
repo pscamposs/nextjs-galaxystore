@@ -15,7 +15,7 @@ import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 
 export default function ModalTabs() {
-  const { tab, toggleTab, plugin } = useContext(ModalContext);
+  const { tab, toggleTab, plugin, toggleModal } = useContext(ModalContext);
   const [loading, setLoading] = useState(false);
   const router = useRouter();
 
@@ -35,6 +35,7 @@ export default function ModalTabs() {
       toast.error(data.message);
     } else {
       router.push("/login");
+      toggleModal();
     }
     setLoading(false);
   };
