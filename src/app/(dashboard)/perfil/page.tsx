@@ -26,7 +26,7 @@ export default function UserDashboard() {
 
   return (
     <Layout header={<DashboardHeader setView={setDashboardView} />}>
-      <main className="my-2 max-md:my-14 p-8 w-[90%] m-auto bg-zinc-800 rounded-lg min-h-96 shadow shadow-zinc-800">
+      <main className="max-md:my-14 p-8 w-[90%] m-auto bg-zinc-800 rounded-lg min-h-96 shadow shadow-zinc-800">
         {dashboardView}
       </main>
     </Layout>
